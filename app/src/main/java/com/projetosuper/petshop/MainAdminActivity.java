@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainAdminActivity extends AppCompatActivity {
-    Button btn_veterinarios, btn_produtos, btn_admin_logout;
+    Button btn_admin_logout;
     Button btn_lista_veterinarios, btn_lista_produtos, btn_lista_animais;
 
     @Override
