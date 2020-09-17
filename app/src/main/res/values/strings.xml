@@ -13,24 +13,46 @@
     <string name="edt_admin_password">Admin Password</string>
     <string name="btn_signin_admin">Sign In</string>
     <string name="adverting">Esqueceu credenciais? Contate suporte</string>
+    
+    <!-- Strings Cadastrar Veterinário - CadastrarVeterinarioActivity -->
+    <string name="btn_vet_camera">Tirar Foto com a Camera</string>
+    <string name="btn_vet_foto">Inserir Foto</string>
+    <string name="edt_vet_nome">Nome</string>
+    <string name="edt_vet_especialidade">Especialidade</string>
+    <string name="edt_vet_experiencia">Tempo de Experiência (Anos)</string>
+    <string name="edt_vet_idade">Idade</string>
+    <string name="edt_vet_endereco">Endereco</string>
+    <string name="edt_vet_preco">Valor da Consulta</string>
+
+    <string name="btn_vet_cadastrar">Cadastrar Veterinário</string>
+    <string name="btn_vet_cancelar">Cancelar</string>
 
     <!-- Strings Main Admin - MainAdminActivity -->
-    <string name="btn_veterinarios">Veterinários</string>
-    <string name="btn_produtos">Produtos</string>
+    <string name="btn_veterinarios">Cadastrar Veterinários</string>
+    <string name="btn_produtos">Cadastrar Produtos</string>
+    <string name="btn_lista_animais">Visualizar Lista de Animais</string>
     <string name="btn_logout">Logout</string>
+    <string name="btn_lista_veterinarios">Visualizar Lista de Veterinários</string>
+    <string name="btn_lista_produtos">Visualizar Lista de Produtos</string>
 
     <!-- Strings Cliente Registro - ClienteRegistroActivity -->
-    <string name = "edt_cliente_nome">Nome</string>
+    <string name="edt_cliente_nome">Nome</string>
     <string name="edt_cliente_email">E-mail</string>
     <string name="edt_cliente_cpf">CPF: XXX.XXX.XXX-XX</string>
     <string name="edt_cliente_senha">Senha</string>
     <string name="edt_cliente_confirmar_senha">Confirmar Senha</string>
     <string name="edt_cliente_idade">Idade</string>
-    <string name = "edt_cliente_telefone">Fone: (XX) XXX XXX XXX</string>
+    <string name="edt_cliente_telefone">Fone: (XX) XXX XXX XXX</string>
 
     <string name="btn_camera">Tirar Foto com a Câmera</string>
     <string name="btn_imagem">Inserir Foto</string>
     <string name="btn_registrar">Registrar</string>
     <string name="btn_cancelar">Cancelar</string>
 
+    <!-- Strings Area Cliente - AreaDoClienteActivity -->
+    <string name="btn_cliente_logout">Logout</string>
+    <string name="btn_contratar_veterinario">Contratar Veterinário</string>
+    <string name="btn_comprar_produto">Comprar Produtos</string>
+    <string name="btn_pet">Cadastrar Seu Pet</string>
+    <string name="btn_editar_cliente">Editar seus dados</string>
 </resources>

@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent go_to_admin = new Intent(MainActivity.this, LoginAdminActivity.class);
                 startActivity(go_to_admin);
+                finish();
             }
         });
         btn_go_register.setOnClickListener(new View.OnClickListener() {
@@ -39,6 +40,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent go_to_cliente_registro = new Intent(MainActivity.this, ClienteRegistroActivity.class);
                 startActivity(go_to_cliente_registro);
+                finish();
+            }
+        });
+        //verificar no banco se os dados digitados existem, entao faça isso
+        //Senão existir, avisar para cliente se registrar
+        btn_signin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent go_to_area_cliente = new Intent(MainActivity.this, AreaDoClienteActivity.class);
+                startActivity(go_to_area_cliente);
+                finish();
             }
         });
     }
