@@ -3,19 +3,34 @@
 
     <!-- Strings Login - MainActivity -->
     <string name="edt_username">E-mail</string>
-    <string name="edt_password">Password</string>
-    <string name="btn_signin">Sign In</string>
-    <string name="btn_go_register">New Customer? Register Here</string>
-    <string name="btn_go_loja">Administration</string>
+    <string name="edt_password">Senha</string>
+    <string name="btn_signin">Entre</string>
+    <string name="btn_go_register">Novo Cliente? Registre-se Aqui</string>
+    <string name="btn_go_loja">Administração</string>
 
     <!-- Strings Admin Login - LoginAdminActivity -->
     <string name="edt_admin_user">Admin User</string>
     <string name="edt_admin_password">Admin Password</string>
     <string name="btn_signin_admin">Sign In</string>
-    <string name="adverting">Forgot Password? Contact Administration</string>
+    <string name="adverting">Esqueceu credenciais? Contate suporte</string>
 
     <!-- Strings Main Admin - MainAdminActivity -->
     <string name="btn_veterinarios">Veterinários</string>
     <string name="btn_produtos">Produtos</string>
     <string name="btn_logout">Logout</string>
+
+    <!-- Strings Cliente Registro - ClienteRegistroActivity -->
+    <string name = "edt_cliente_nome">Nome</string>
+    <string name="edt_cliente_email">E-mail</string>
+    <string name="edt_cliente_cpf">CPF: XXX.XXX.XXX-XX</string>
+    <string name="edt_cliente_senha">Senha</string>
+    <string name="edt_cliente_confirmar_senha">Confirmar Senha</string>
+    <string name="edt_cliente_idade">Idade</string>
+    <string name = "edt_cliente_telefone">Fone: (XX) XXX XXX XXX</string>
+
+    <string name="btn_camera">Tirar Foto com a Câmera</string>
+    <string name="btn_imagem">Inserir Foto</string>
+    <string name="btn_registrar">Registrar</string>
+    <string name="btn_cancelar">Cancelar</string>
+
 </resources>

@@ -17,8 +17,6 @@ public class LoginAdminActivity extends AppCompatActivity {
     //Strings que serão usadas para pegar o que foi digitado
     String str_admin_user, str_admin_password;
 
-    //Strings que determinam a senha de acesso
-
 
 
     @Override
@@ -36,6 +34,7 @@ public class LoginAdminActivity extends AppCompatActivity {
         str_admin_password = edt_admin_password.getText().toString();
 
         //comparar o que foi digitado com o correto
+        //essa tela pode ser melhorada colocando os campos que permitem acesso em uma tabela de banco de dados
         btn_signin_admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

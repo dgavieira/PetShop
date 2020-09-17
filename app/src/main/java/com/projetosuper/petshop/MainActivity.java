@@ -34,5 +34,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(go_to_admin);
             }
         });
+        btn_go_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent go_to_cliente_registro = new Intent(MainActivity.this, ClienteRegistroActivity.class);
+                startActivity(go_to_cliente_registro);
+            }
+        });
     }
 }
