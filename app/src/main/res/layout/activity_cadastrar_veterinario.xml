@@ -6,55 +6,45 @@
     android:layout_height="match_parent"
     tools:context=".CadastrarVeterinarioActivity">
 
-    <ImageView
-        android:id="@+id/img_veterinario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
-
     <Button
         android:id="@+id/btn_vet_camera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="196dp"
+        android:layout_height="54dp"
         android:layout_marginTop="16dp"
         android:text="@string/btn_vet_camera"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.436"
-        app:layout_constraintStart_toEndOf="@+id/img_veterinario"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_vet_foto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="72dp"
         android:text="@string/btn_vet_foto"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.436"
-        app:layout_constraintStart_toEndOf="@+id/img_veterinario"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/btn_vet_camera" />
 
     <EditText
         android:id="@+id/edt_vet_nome"
         android:layout_width="250dp"
         android:layout_height="45dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="34dp"
         android:ems="10"
         android:hint="@string/edt_vet_nome"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_veterinario" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_vet_foto" />
 
     <EditText
         android:id="@+id/edt_vet_especialidade"
         android:layout_width="250dp"
         android:layout_height="45dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="44dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/edt_vet_especialidade"
@@ -66,8 +56,8 @@
         android:id="@+id/edt_vet_experiencia"
         android:layout_width="250dp"
         android:layout_height="45dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="@string/edt_vet_experiencia"
         android:inputType="number"
@@ -78,8 +68,8 @@
         android:id="@+id/edt_vet_idade"
         android:layout_width="250dp"
         android:layout_height="45dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="@string/edt_vet_idade"
         android:inputType="number"
@@ -90,7 +80,7 @@
         android:id="@+id/edt_vet_endereco"
         android:layout_width="250dp"
         android:layout_height="45dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="44dp"
         android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="@string/edt_vet_endereco"
@@ -117,5 +107,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_vet_cadastrar" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="115dp"
+        android:layout_height="117dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

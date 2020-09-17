@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CadastrarVeterinarioActivity"></activity>
+        <activity android:name=".VisualizarProdutosActivity"></activity>
+        <activity android:name=".VisualizarVeterinariosActivity" />
+        <activity android:name=".VisualizarAnimaisActivity" />
+        <activity android:name=".CadastrarProdutoActivity" />
+        <activity android:name=".CadastrarVeterinarioActivity" />
         <activity android:name=".AreaDoClienteActivity" />
         <activity android:name=".ClienteRegistroActivity" />
         <activity android:name=".MainAdminActivity" />

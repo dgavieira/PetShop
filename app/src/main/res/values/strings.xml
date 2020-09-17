@@ -13,7 +13,7 @@
     <string name="edt_admin_password">Admin Password</string>
     <string name="btn_signin_admin">Sign In</string>
     <string name="adverting">Esqueceu credenciais? Contate suporte</string>
-    
+
     <!-- Strings Cadastrar Veterinário - CadastrarVeterinarioActivity -->
     <string name="btn_vet_camera">Tirar Foto com a Camera</string>
     <string name="btn_vet_foto">Inserir Foto</string>
@@ -55,4 +55,14 @@
     <string name="btn_comprar_produto">Comprar Produtos</string>
     <string name="btn_pet">Cadastrar Seu Pet</string>
     <string name="btn_editar_cliente">Editar seus dados</string>
+    
+    <!-- Strings Cadastro produto - CadastrarProdutoActivity -->
+    <string name="btn_produto_camera">Tirar com a Camera</string>
+    <string name="btn_produto_imagem">Inserir Foto</string>
+    <string name="edt_produto_nome">Nome</string>
+    <string name="edt_produto_descricao">Descrição</string>
+    <string name="edt_produto_valor">Valor: R$ X,XX</string>
+
+    <string name="btn_produto_cadastrar">Cadastrar Produto</string>
+    <string name="btn_produto_cancelar">Cancelar</string>
 </resources>
