@@ -110,27 +110,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_cliente_telefone" />
 
-    <EditText
-        android:id="@+id/edt_cliente_confirmar_senha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="@string/edt_cliente_confirmar_senha"
-        android:inputType="textPassword"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_cliente_senha" />
-
     <Button
         android:id="@+id/btn_cliente_registrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="28dp"
+        android:onClick="cadastrar_cliente"
         android:text="@string/btn_registrar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_cliente_confirmar_senha" />
+        app:layout_constraintTop_toBottomOf="@+id/edt_cliente_senha" />
 
     <Button
         android:id="@+id/btn_cliente_cancelar"

@@ -5,121 +5,111 @@ import android.net.Uri;
 import java.io.Serializable;
 
 public class Cliente implements Serializable {
-    private int id_cliente;
-    private String nome_cliente;
-    private String email_cliente;
-    private String cpf_cliente;
-    private int idade_cliente;
-    private String telefone_cliente;
-    private Uri imageUri_cliente;
-    private String senha_cliente;
+    private int cliente_id;
+    private Uri cliente_imageUri;
+    private String cliente_nome;
+    private String cliente_email;
+    private String cliente_cpf;
+    private int cliente_idade;
+    private String cliente_telefone;
+    private String cliente_senha;
 
-    public Cliente(int id_cliente, String nome_cliente, String email_cliente, String cpf_cliente,
-                   int idade_cliente, String telefone_cliente, Uri imageUri_cliente) {
-        this.id_cliente = id_cliente;
-        this.nome_cliente = nome_cliente;
-        this.email_cliente = email_cliente;
-        this.cpf_cliente = cpf_cliente;
-        this.idade_cliente = idade_cliente;
-        this.telefone_cliente = telefone_cliente;
-        this.imageUri_cliente = imageUri_cliente;
+    public Cliente(int cliente_id, Uri cliente_imageUri, String cliente_nome, String cliente_email,
+                   String cliente_cpf, int cliente_idade, String cliente_telefone,
+                   String cliente_senha) {
+        this.cliente_id = cliente_id;
+        this.cliente_imageUri = cliente_imageUri;
+        this.cliente_nome = cliente_nome;
+        this.cliente_email = cliente_email;
+        this.cliente_cpf = cliente_cpf;
+        this.cliente_idade = cliente_idade;
+        this.cliente_telefone = cliente_telefone;
+        this.cliente_senha = cliente_senha;
     }
 
-    public Cliente(int id_cliente, String nome_cliente, String email_cliente, String cpf_cliente,
-                   int idade_cliente, String telefone_cliente, Uri imageUri_cliente,
-                   String senha_cliente) {
-        this.id_cliente = id_cliente;
-        this.nome_cliente = nome_cliente;
-        this.email_cliente = email_cliente;
-        this.cpf_cliente = cpf_cliente;
-        this.idade_cliente = idade_cliente;
-        this.telefone_cliente = telefone_cliente;
-        this.imageUri_cliente = imageUri_cliente;
-        this.senha_cliente = senha_cliente;
+    public Cliente(String cliente_nome, String cliente_email,
+                   String cliente_cpf, int cliente_idade, String cliente_telefone,
+                   String cliente_senha) {
+        this.cliente_nome = cliente_nome;
+        this.cliente_email = cliente_email;
+        this.cliente_cpf = cliente_cpf;
+        this.cliente_idade = cliente_idade;
+        this.cliente_telefone = cliente_telefone;
+        this.cliente_senha = cliente_senha;
     }
 
-    public Cliente(String nome_cliente, String email_cliente, String cpf_cliente, int idade_cliente,
-                   String telefone_cliente, Uri imageUri_cliente) {
-        this.nome_cliente = nome_cliente;
-        this.email_cliente = email_cliente;
-        this.cpf_cliente = cpf_cliente;
-        this.idade_cliente = idade_cliente;
-        this.telefone_cliente = telefone_cliente;
-        this.imageUri_cliente = imageUri_cliente;
+    public Cliente(int cliente_id, String cliente_nome, String cliente_email, String cliente_cpf,
+                   int cliente_idade, String cliente_telefone, String cliente_senha) {
+        this.cliente_id = cliente_id;
+        this.cliente_nome = cliente_nome;
+        this.cliente_email = cliente_email;
+        this.cliente_cpf = cliente_cpf;
+        this.cliente_idade = cliente_idade;
+        this.cliente_telefone = cliente_telefone;
+        this.cliente_senha = cliente_senha;
     }
 
-    public Cliente(String nome_cliente, String email_cliente, String cpf_cliente, int idade_cliente,
-                   String telefone_cliente, Uri imageUri_cliente, String senha_cliente) {
-        this.nome_cliente = nome_cliente;
-        this.email_cliente = email_cliente;
-        this.cpf_cliente = cpf_cliente;
-        this.idade_cliente = idade_cliente;
-        this.telefone_cliente = telefone_cliente;
-        this.imageUri_cliente = imageUri_cliente;
-        this.senha_cliente = senha_cliente;
+    public int getCliente_id() {
+        return cliente_id;
     }
 
-    public int getId_cliente() {
-        return id_cliente;
+    public void setCliente_id(int cliente_id) {
+        this.cliente_id = cliente_id;
     }
 
-    public void setId_cliente(int id_cliente) {
-        this.id_cliente = id_cliente;
+    public Uri getCliente_imageUri() {
+        return cliente_imageUri;
     }
 
-    public String getNome_cliente() {
-        return nome_cliente;
+    public void setCliente_imageUri(Uri cliente_imageUri) {
+        this.cliente_imageUri = cliente_imageUri;
     }
 
-    public void setNome_cliente(String nome_cliente) {
-        this.nome_cliente = nome_cliente;
+    public String getCliente_nome() {
+        return cliente_nome;
     }
 
-    public String getEmail_cliente() {
-        return email_cliente;
+    public void setCliente_nome(String cliente_nome) {
+        this.cliente_nome = cliente_nome;
     }
 
-    public void setEmail_cliente(String email_cliente) {
-        this.email_cliente = email_cliente;
+    public String getCliente_email() {
+        return cliente_email;
     }
 
-    public String getCpf_cliente() {
-        return cpf_cliente;
+    public void setCliente_email(String cliente_email) {
+        this.cliente_email = cliente_email;
     }
 
-    public void setCpf_cliente(String cpf_cliente) {
-        this.cpf_cliente = cpf_cliente;
+    public String getCliente_cpf() {
+        return cliente_cpf;
     }
 
-    public int getIdade_cliente() {
-        return idade_cliente;
+    public void setCliente_cpf(String cliente_cpf) {
+        this.cliente_cpf = cliente_cpf;
     }
 
-    public void setIdade_cliente(int idade_cliente) {
-        this.idade_cliente = idade_cliente;
+    public int getCliente_idade() {
+        return cliente_idade;
     }
 
-    public String getTelefone_cliente() {
-        return telefone_cliente;
+    public void setCliente_idade(int cliente_idade) {
+        this.cliente_idade = cliente_idade;
     }
 
-    public void setTelefone_cliente(String telefone_cliente) {
-        this.telefone_cliente = telefone_cliente;
+    public String getCliente_telefone() {
+        return cliente_telefone;
     }
 
-    public Uri getImageUri_cliente() {
-        return imageUri_cliente;
+    public void setCliente_telefone(String cliente_telefone) {
+        this.cliente_telefone = cliente_telefone;
     }
 
-    public void setImageUri_cliente(Uri imageUri_cliente) {
-        this.imageUri_cliente = imageUri_cliente;
+    public String getCliente_senha() {
+        return cliente_senha;
     }
 
-    public String getSenha_cliente() {
-        return senha_cliente;
-    }
-
-    public void setSenha_cliente(String senha_cliente) {
-        this.senha_cliente = senha_cliente;
+    public void setCliente_senha(String cliente_senha) {
+        this.cliente_senha = cliente_senha;
     }
 }
