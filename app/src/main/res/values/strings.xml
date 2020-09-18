@@ -53,9 +53,9 @@
     <string name="btn_cliente_logout">Logout</string>
     <string name="btn_contratar_veterinario">Contratar Veterinário</string>
     <string name="btn_comprar_produto">Comprar Produtos</string>
-    <string name="btn_pet">Cadastrar Seu Pet</string>
+    <string name="btn_pet">Seus Pets</string>
     <string name="btn_editar_cliente">Editar seus dados</string>
-    
+
     <!-- Strings Cadastro produto - CadastrarProdutoActivity -->
     <string name="btn_produto_camera">Tirar com a Camera</string>
     <string name="btn_produto_imagem">Inserir Foto</string>
