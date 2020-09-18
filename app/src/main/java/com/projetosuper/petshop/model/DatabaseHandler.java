@@ -14,11 +14,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_TABLE_CLIENTE);
+        db.execSQL(SQL_CREATE_TABLE_PRODUTO);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(SQL_DELETE_TABLE_CLIENTE);
+        db.execSQL(SQL_DELETE_TABLE_PRODUTO);
         onCreate(db);
     }
 
@@ -39,9 +41,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             "cliente_telefone TEXT NOT NULL, "+
             "cliente_senha TEXT NOT NULL)";
 
+    //criacao da tabela TABLE PRODUTO
+    private static final String SQL_CREATE_TABLE_PRODUTO =
+            "CREATE TABLE Produto (" +
+                    "produto_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"+
+                    "produto_imageURI TEXT, "+
+                    "produto_nome TEXT NOT NULL, "+
+                    "produto_descricao TEXT NOT NULL, "+
+                    "produto_preco REAL NOT NULL)";
+
+    private static final String SQL_CREATE_TABLE_COMPRA =
+            "CREATE TABLE Compra ()";
+
     //exclusao da tabela TABLE CLIENTE
     private static final String SQL_DELETE_TABLE_CLIENTE =
             "DROP TABLE IF EXISTS Cliente";
+
+    //exclusao da tabela TABLE PRODUTO
+    private static final String SQL_DELETE_TABLE_PRODUTO =
+            "DROP TABLE IF EXISTS Produto";
 
     //Comandos de SQL para Cliente
     protected static final String SQL_SELECT_CLIENTE_BY_ID =
@@ -52,4 +70,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     protected static final String SQL_SELECT_ALL_CLIENTE_BY_ID =
             "SELECT * FROM Cliente ORDER BY cliente_nome";
+
+    //Comandos de SQL para Produto
+    protected static final String SQL_SELECT_PRODUTO_BY_ID =
+            "SELECT * FROM Produto WHERE produto_id=?";
+    protected static final String SQL_SELECT_ALL_PRODUTO_BY_ID =
+            "SELECT * FROM Produto ORDER BY produto_nome";
 }
