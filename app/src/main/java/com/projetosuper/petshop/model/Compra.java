@@ -1,6 +1,8 @@
 package com.projetosuper.petshop.model;
 
-public class Compra {
+import java.io.Serializable;
+
+public class Compra implements Serializable {
     private int compra_id;
     private int cliente_id;
     private int produto_id;
