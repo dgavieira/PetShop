@@ -16,7 +16,7 @@ public class Produto {
         this.prod_descricao = prod_descricao;
         this.prod_preco = prod_preco;
     }
-
+    //construtor sem a imagem
     public Produto(int prod_id, String prod_nome, String prod_descricao, Double prod_preco) {
         this.prod_id = prod_id;
         this.prod_nome = prod_nome;
@@ -24,6 +24,13 @@ public class Produto {
         this.prod_preco = prod_preco;
     }
 
+    public Produto(String prod_nome, String prod_descricao, Double prod_preco) {
+        this.prod_nome = prod_nome;
+        this.prod_descricao = prod_descricao;
+        this.prod_preco = prod_preco;
+    }
+
+    //getter e setter
     public int getProd_id() {
         return prod_id;
     }

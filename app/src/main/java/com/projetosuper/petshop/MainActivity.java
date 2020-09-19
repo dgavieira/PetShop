@@ -49,14 +49,6 @@ public class MainActivity extends AppCompatActivity {
         });
         //verificar no banco se os dados digitados existem, entao faça isso
         //Senão existir, avisar para cliente se registrar
-        btn_signin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent go_to_area_cliente = new Intent(MainActivity.this, AreaDoClienteActivity.class);
-                startActivity(go_to_area_cliente);
-                finish();
-            }
-        });
     }
 
     @Override

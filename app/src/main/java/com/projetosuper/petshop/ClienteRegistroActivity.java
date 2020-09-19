@@ -58,7 +58,6 @@ public class ClienteRegistroActivity extends AppCompatActivity {
         //tratar entrada das variaveis
 
         //implementar classe Cliente e DAO para banco de dados
-
     }
 
     //metodo setado no atributo onClick de btn_cliente_registrar em activity_cliente_registro.xml
@@ -95,5 +94,14 @@ public class ClienteRegistroActivity extends AppCompatActivity {
             startActivity(go_to_login_cliente);
             finish();
         }
+    }
+    public void cancelar_cliente(View view){
+        edt_cliente_nome.setText("");
+        edt_cliente_email.setText("");
+        edt_cliente_cpf.setText("");
+        edt_cliente_telefone.setText("");
+        edt_cliente_idade.setText("");
+        edt_cliente_telefone.setText("");
+        edt_cliente_senha.setText("");
     }
 }
