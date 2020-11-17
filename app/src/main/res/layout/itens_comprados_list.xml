@@ -21,7 +21,7 @@
                 app:srcCompat="@drawable/osso" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
                 android:orientation="vertical">
@@ -34,7 +34,7 @@
                     android:layout_marginTop="16dp"
                     android:fontFamily="sans-serif-light"
                     android:text="Nome do produto"
-                    android:textSize="17sp"
+                    android:textSize="24sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:text="R$ 200,00"
-                    android:textSize="17sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/txtQnt"
@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:text="10 unidades"
-                    android:textSize="17sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/txtCustoTotal"
@@ -60,7 +60,7 @@
                     android:layout_marginStart="10dp"
                     android:fontFamily="sans-serif-medium"
                     android:text="R$ 2000,00"
-                    android:textSize="17sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
 

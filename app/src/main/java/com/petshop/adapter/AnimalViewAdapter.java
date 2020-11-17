@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,75 +16,64 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.petshop.AtualizaAnimal;
 import com.petshop.R;
-import com.petshop.listener.RecyclerItemClickListener;
-import com.petshop.listener.RecyclerItemLongClickListener;
-import com.petshop.model.Animais;
 import com.petshop.resource.CircleImageView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
 
-public class AnimalViewAdapter extends RecyclerView.Adapter<AnimalViewAdapter.AnimalHolder> {
-
-    private List<Animais> animaisList;
-    Animais animais;
+public class AnimalViewAdapter extends RecyclerView.Adapter<AnimalViewAdapter.ViewHolder> {
+    //Recebimento quando chamar o construtor.
     Context context;
-    View view;
-    private RecyclerItemClickListener recyclerItemClickListener;
-    private RecyclerItemLongClickListener recyclerItemLongClickListener;
+    List<String> nomes = new ArrayList<String>();
+    String[] raca;
+    String[] categorias;
+    String[] fotos;
+    View viewOnCreate;
+    ViewHolder viewHolderLocal;
 
 
 
-    public AnimalViewAdapter(Context context){
-        this.context = context;
-        this.animaisList = new ArrayList<>();
+    public AnimalViewAdapter(Context contextRecebido, String[] nomesRecebidos,
+                             String[] racaRecebidas,
+                             String[] categoriasRecebidos,
+                             String[] fotosRecebidas){
+            context = contextRecebido;
+            nomes.addAll(Arrays.asList(nomesRecebidos));
+            raca = racaRecebidas;
+            categorias = categoriasRecebidos;
+            fotos = fotosRecebidas;
+
+
     }
 
-    private void add(Animais item) {
-        animaisList.add(item);
-        notifyItemInserted(animaisList.size());
-    }
-
-    public void addAll(List<Animais> animaisList) {
-        for (Animais animais : animaisList) {
-            add(animais);
-        }
-    }
-
-    public void remove(Animais item) {
-        int position = animaisList.indexOf(item);
-        if (position > -1) {
-            animaisList.remove(position);
-            notifyItemRemoved(position);
-        }
-    }
-
-    public void clear() {
-        while (getItemCount() > 0) {
-            remove(getItem(0));
-        }
-    }
-
-    public Animais getItem(int position) {
-        return animaisList.get(position);
-    }
-
-
-    public static class AnimalHolder extends RecyclerView.ViewHolder{
+    //Método para estender a claase já existente.
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public TextView textNome;
         public TextView textRaca;
-        public TextView textCategoria;
-        public CircleImageView fotoPet;
+        public CircleImageView icone;
 
-        public AnimalHolder(View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
             textNome = itemView.findViewById(R.id.textNome);
             textRaca = itemView.findViewById(R.id.textRaca);
-            textCategoria = itemView.findViewById(R.id.textCategoria);
-            fotoPet = itemView.findViewById(R.id.icone);
+            icone = itemView.findViewById(R.id.icone);
+
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                }
+            });
+        }
+        //Implementação do método onClick na View.
+        @Override
+        public void onClick(View v) {
 
         }
     }
@@ -91,73 +81,53 @@ public class AnimalViewAdapter extends RecyclerView.Adapter<AnimalViewAdapter.An
 
     @NonNull
     @Override
-    public AnimalHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        view = LayoutInflater.from(context).inflate(R.layout.item_lista_pet,parent,false);
-
-        final AnimalHolder animalHolder = new AnimalHolder(view);
-
-        animalHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int adapterPos = animalHolder.getAdapterPosition();
-                if (adapterPos != RecyclerView.NO_POSITION) {
-                    if (recyclerItemClickListener != null) {
-                        recyclerItemClickListener.onItemClick(adapterPos, animalHolder.itemView);
-                    }
-                }
-
-            }
-        });
-        animalHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                int adapterPos = animalHolder.getAdapterPosition();
-                if (adapterPos != RecyclerView.NO_POSITION) {
-                    if (recyclerItemClickListener != null) {
-                        recyclerItemLongClickListener.onItemLongClick(adapterPos, animalHolder.itemView);
-                    }
-                }
-
-                return false;
-            }
-        });
-        return animalHolder;
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        viewOnCreate = LayoutInflater.from(context).inflate(R.layout.item_lista_pet,parent,false);
+        viewHolderLocal = new ViewHolder(viewOnCreate);
+        return viewHolderLocal;
     }
 
     @Override
-    public void onBindViewHolder(final AnimalHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+        holder.textNome.setText(nomes.get(position));
+        holder.textRaca.setText(raca[position]);
 
-        final Animais animais = animaisList.get(position);
 
-        byte[] profileImagePet = animais.getFoto();
-        Bitmap raw = BitmapFactory.decodeByteArray(profileImagePet, 0, profileImagePet.length);
+        if (!fotos[position].equals("") || fotos[position].equals("null")) {
+            if(categorias[position].equals("Cachorro")) {
+                holder.icone.setImageResource(R.drawable.ic_dog);
+            }else {
+                holder.icone.setImageResource(R.drawable.ic_cat);
+            }
 
-        holder.textNome.setText(animais.getNome());
-        holder.textRaca.setText(animais.getRaca());
-        holder.textCategoria.setText(animais.getCategoria());
-        holder.fotoPet.setImageBitmap(raw);
+        } else {
+            byte[] imagemEmBytes;
+            imagemEmBytes = Base64.decode(fotos[position], Base64.DEFAULT);
+            Bitmap imageDecodificada = BitmapFactory.decodeByteArray(imagemEmBytes,0,imagemEmBytes.length);
+            holder.icone.setImageBitmap(imageDecodificada);
+
+        }
+
+        viewOnCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(context, AtualizaAnimal.class);
+                intent.putExtra("nome", nomes.get(position));
+                intent.putExtra("raca", raca[position]);
+                intent.putExtra("categorias", categorias[position]);
+                intent.putExtra("foto", fotos[position]);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                v.getContext().startActivity(intent);
+
+            }
+        });
 
 
     }
-
 
     @Override
     public int getItemCount() {
-        return animaisList.size();
-    }
-
-    public void setOnItemClickListener(RecyclerItemClickListener recyclerItemClickListener) {
-        this.recyclerItemClickListener = recyclerItemClickListener;
-    }
-
-    public  void setOnItemLongClickListener(RecyclerItemLongClickListener recyclerItemLongClickListener){
-        this.recyclerItemLongClickListener = recyclerItemLongClickListener;
-    }
-
-
-    public int getSelectedItemID()
-    {
-        return animais.getId();
+        return nomes.size();
     }
 }

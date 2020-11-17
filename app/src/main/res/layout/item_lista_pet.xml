@@ -5,20 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="11dp"
-        android:layout_marginRight="11dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginBottom="7dp"
-        app:cardElevation="@dimen/cardview_default_elevation"
-        app:cardCornerRadius="10dp">
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:layout_marginTop="10dp">
 
         <com.petshop.resource.CircleImageView
@@ -26,7 +15,9 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/logo_petshop_gray" />
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@android:drawable/ic_menu_upload" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,7 +31,6 @@
                 android:id="@+id/textNome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 android:text="textNome"
                 android:textStyle="bold">
 
@@ -54,20 +44,9 @@
 
             </TextView>
 
-            <TextView
-                android:visibility="invisible"
-                android:id="@+id/textCategoria"
-                android:text="categoria"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </TextView>
-
         </LinearLayout>
 
 
     </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

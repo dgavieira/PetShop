@@ -93,8 +93,7 @@ public class UsuarioDAO implements DAP {
                     cursor.getString(1),
                     cursor.getString(2),
                     cursor.getInt(3),
-                    cursor.getBlob(4),
-                    cursor.getString(5)
+                    cursor.getString(4)
             );
         }
 
@@ -117,8 +116,7 @@ public class UsuarioDAO implements DAP {
                     cursor.getString(1),
                     cursor.getString(2),
                     cursor.getInt(3),
-                    cursor.getBlob(4),
-                    cursor.getString(5)
+                    cursor.getString(4)
             );
         }
 
@@ -140,7 +138,6 @@ public class UsuarioDAO implements DAP {
                         cursor.getString(1),
                         cursor.getString(2),
                         cursor.getInt(3),
-                        cursor.getBlob(4),
                         cursor.getString(4) )
                 );
             } while(cursor.moveToNext());
@@ -155,7 +152,6 @@ public class UsuarioDAO implements DAP {
         values.put("nome",user.getNome());
         values.put("senha", user.getSenha());
         values.put("idade", user.getIdade());
-        values.put("img", user.getImg());
         values.put("email",user.getEmail());
         return values;
     }

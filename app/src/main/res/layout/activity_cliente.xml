@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f0f0f0"
     android:fitsSystemWindows="true" >
 
     <com.google.android.material.appbar.AppBarLayout
@@ -26,48 +25,14 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.cardview.widget.CardView
+
+    <ListView
+        android:id="@+id/recyclerViewProdutoComprados"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="11dp"
-        android:layout_marginRight="11dp"
-        android:layout_marginTop="400dp"
-        android:layout_marginBottom="7dp"
-        app:cardElevation="@dimen/cardview_default_elevation"
-        app:cardCornerRadius="10dp">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:orientation="vertical">
-
-    <Button
-        android:id="@+id/btnListaAnimais"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginLeft="11dp"
-        android:layout_marginRight="11dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/button_petshop"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:text="Visualizar meus pets"
-        android:textColor="#ffffff" />
-
-
-    <Button
-        android:id="@+id/btnListaProdutosComprados"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginLeft="11dp"
-        android:layout_marginRight="11dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/button_petshop"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:text="Visualizar meus produtos"
-        android:textColor="#ffffff" />
-
-    </LinearLayout>
-    </androidx.cardview.widget.CardView>
+        android:clickable="false"
+        android:focusable="false"
+        android:layout_marginTop="200dp"
+        android:layout_height="match_parent" />
 
 
     <com.joaquimley.faboptions.FabOptions

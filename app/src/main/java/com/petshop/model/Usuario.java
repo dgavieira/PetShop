@@ -8,23 +8,20 @@ public class Usuario implements Serializable {
     private String nome;
     private String senha;
     private int idade;
-    private byte[] img;
     private String email;
 
-    public Usuario(String nome, String senha, int idade, byte[] img, String email) {
+    public Usuario(String nome, String senha, int idade, String email) {
         this.nome = nome;
         this.senha = senha;
         this.idade = idade;
-        this.img = img;
         this.email = email;
     }
 
-    public Usuario(int id, String nome, String senha, int idade, byte[] img, String email  ) {
+    public Usuario(int id, String nome, String senha, int idade, String email  ) {
+        this.email = email;
         this.nome = nome;
         this.senha = senha;
         this.idade = idade;
-        this.img = img;
-        this.email = email;
         this.id = id;
     }
 
@@ -58,14 +55,6 @@ public class Usuario implements Serializable {
 
     public void setIdade(int idade) {
         this.idade = idade;
-    }
-
-    public byte[] getImg() {
-        return img;
-    }
-
-    public void setImg(byte[] img) {
-        this.img = img;
     }
 
     public int getId() {

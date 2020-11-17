@@ -15,30 +15,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 //A classe e sua extensão para conexaão com o banco de dados.
-public class SQLDataAnimal extends SQLiteOpenHelper {
+public class DAO extends SQLiteOpenHelper {
 
     //Criação do nome do banco de dados e versão.
-    public SQLDataAnimal(Context context) {
-        super(context, "banco", null, 10);
+    public DAO(Context context) {
+        super(context, "banco", null, 8);
     }
 
 
     /*Subescrevendo o método de criação do objeto no  banco de dados.
      O método Oncreate cria o banco no momento de execução do aplicativo*/
-
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql  = "CREATE TABLE IF NOT EXISTS animais(" +
-                "id INTEGER not null primary key AUTOINCREMENT ," +
-                "nome TEXT UNIQUE ," +
-                "categoria TEXT ," +
-                "foto BLOB ," +
-                "raca TEXT );";
+        String sql  = "CREATE TABLE IF NOT EXISTS animais(nome TEXT UNIQUE ," +
+                " categoria TEXT ," +
+                " foto TEXT ," +
+                " raca TEXT );";
+        //Executando a ação anterior.
                 db.execSQL(sql);
         db.execSQL(sql);
     }
 
-
+    //Atualização do banco de dados.Usando para atualizar a estrutura pela versão do banco.
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         String sql = "DROP TABLE IF EXISTS animais;";
@@ -46,29 +44,33 @@ public class SQLDataAnimal extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-
+    //Criação do método para criar o banco.
     public void insereAnimal(Animais animais, String animaisParaAtualizar) {
 
+        //Gravando no banco de dados.
 
         SQLiteDatabase db = getWritableDatabase(); //verificar
         ContentValues dados = new ContentValues();
 
-        dados.put("id", animais.getId());
         dados.put("nome", animais.getNome());
         dados.put("raca", animais.getRaca());
+
         dados.put("categoria", animais.getCategoria());
-        dados.put("foto", animais.getFoto());
+
+        if(!animais.getFoto().equals("")){
+            dados.put("foto", animais.getFoto());
+        }
 
         if(animaisParaAtualizar != null){
-            dados.put("id", animaisParaAtualizar);
+            dados.put("nome", animaisParaAtualizar);
         }else{
-            dados.put("id", animais.getId());
+            dados.put("nome", animais.getNome());
         }
         try{
             db.insertOrThrow("animais",null, dados);
         }catch (SQLiteConstraintException e){
-            dados.put("id", animais.getId());
-            db.update("animais", dados, "id = ?", new String[]{animaisParaAtualizar});
+            dados.put("nome", animais.getNome());
+            db.update("animais", dados, "nome = ?", new String[]{animaisParaAtualizar});
 
         }
 
@@ -87,11 +89,10 @@ public class SQLDataAnimal extends SQLiteOpenHelper {
         //Enquanto tiver dados no banco. executo uma ação.
         while(c.moveToNext()){
             Animais animais = new Animais();
-            animais.setId(c.getInt(c.getColumnIndex("id")));
             animais.setNome(c.getString(c.getColumnIndex("nome")));
             animais.setCategoria(c.getString(c.getColumnIndex("categoria")));
             animais.setRaca(c.getString(c.getColumnIndex("raca")));
-            animais.setFoto(c.getBlob(c.getColumnIndex("foto")));
+            animais.setFoto(c.getString(c.getColumnIndex("foto")));
             animal.add(animais);
 
         }
@@ -99,9 +100,10 @@ public class SQLDataAnimal extends SQLiteOpenHelper {
 
     }
 
-    public void apagaAnimais(Integer id){
+    public void apagaAnimais(String nome){
+
         SQLiteDatabase db  = getReadableDatabase();
-        String sql =  "DELETE FROM animais WHERE id = " + "'" + id + "'";
+        String sql =  "DELETE FROM animais WHERE nome = " + "'" + nome + "'";
         db.execSQL(sql);
     }
 

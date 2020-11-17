@@ -3,55 +3,32 @@ package com.petshop;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cursoradapter.widget.SimpleCursorAdapter;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.joaquimley.faboptions.FabOptions;
-import com.petshop.adapter.AnimalViewAdapter;
 import com.petshop.adapter.ItensCompradosAdapter;
-import com.petshop.adapter.ProdutoAdapter;
-import com.petshop.adapter.ProdutosCadastradosAdapter;
-import com.petshop.db.AnimalDAO;
-import com.petshop.db.Database;
 import com.petshop.db.ProdutoDAO;
 import com.petshop.db.ShopDAO;
-import com.petshop.db.UsuarioDAO;
-import com.petshop.listener.RecyclerItemClickListener;
-import com.petshop.model.Animais;
-import com.petshop.model.DbBitmapUtility;
-import com.petshop.model.Produto;
 import com.petshop.model.Usuario;
-import com.petshop.resource.CircleImageView;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class ActivityCliente extends AppCompatActivity implements  View.OnClickListener {
 
     Toolbar mToolbar;
     private TextView textViewName, textViewEmail;
-    private Button buttonListaPets, buttonListaProdutosComprados;
     FabOptions mFabOptions;
     private Intent intent;
+    private static Usuario usuario;
     private ShopDAO shopDAO;
     private ProdutoDAO productDAO;
     private ListView listItemsComprado;
     private SimpleCursorAdapter cursorAdapter;
-    private CircleImageView imageViewProfile;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +38,8 @@ public class ActivityCliente extends AppCompatActivity implements  View.OnClickL
         this.shopDAO = new ShopDAO(this);
 
         intent = getIntent();
-
-        final Usuario usuario = (Usuario) getIntent().getSerializableExtra("Usuario");
+        //retorna o usuario atual, passado pela intent anterior
+        usuario = (Usuario) intent.getSerializableExtra("Usuario");
 
         this.setTitle("Seja bem vindo, " + usuario.getNome() + "!");
 
@@ -76,32 +53,23 @@ public class ActivityCliente extends AppCompatActivity implements  View.OnClickL
         textViewEmail = (TextView) findViewById(R.id.email);
         textViewEmail.setText(usuario.getEmail());
 
-        imageViewProfile = (CircleImageView) findViewById(R.id.imageProfilePic);
-
-        buttonListaPets = (Button) findViewById(R.id.btnListaAnimais);
-
-        buttonListaPets.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentPet = new Intent(ActivityCliente.this, PetsCadastrados.class);
-                startActivity(intentPet);
-            }
-        });
-
-        buttonListaProdutosComprados = (Button) findViewById(R.id.btnListaProdutosComprados);
-
-        buttonListaProdutosComprados.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentPet = new Intent(ActivityCliente.this, ProdutosComprados.class);
-                intentPet.putExtra("Usuario",usuario);
-                startActivity(intentPet);
-            }
-        });
-
-
         mFabOptions = findViewById(R.id.fab_options);
         mFabOptions.setOnClickListener(this);
+
+        String[] nome = usuario.getNome().split("");
+
+        listItemsComprado = findViewById(R.id.recyclerViewProdutoComprados);
+        ItensCompradosAdapter adapterItemComprados = new ItensCompradosAdapter(ActivityCliente.this, R.layout.itens_comprados_list);
+
+        //retorna uma lista (do banco de dados SQL) com todos os itens comprados pelo usuário atual
+        ArrayList itensComprados = shopDAO.getProdutos(usuario.getId());
+
+        //add cada objeto do tipo ShopItemComprado, da lista, no adapter customizado
+        for(int i = 0; i < itensComprados.size(); i++){
+            adapterItemComprados.add(itensComprados.get(i)); //add into adapter an object returned from the SQL
+        }
+
+        listItemsComprado.setAdapter(adapterItemComprados);
 
     }
 
@@ -116,6 +84,9 @@ public class ActivityCliente extends AppCompatActivity implements  View.OnClickL
                 break;
 
             case R.id.contratar_veterinario:
+                Intent intent2 = new Intent(ActivityCliente.this, ProdutosComprados.class);
+                intent2.putExtra("Usuario", usuario);
+                startActivity(intent2);
                 break;
 
             case R.id.cadastrar_pet:
@@ -123,11 +94,11 @@ public class ActivityCliente extends AppCompatActivity implements  View.OnClickL
                 break;
 
             case R.id.editar_dados:
+                //startActivity(new Intent(ActivityCliente.this, CadastroAnimal.class));
                 break;
 
             default:
         }
 
     }
-
 }

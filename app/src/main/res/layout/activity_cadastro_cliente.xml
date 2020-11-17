@@ -24,16 +24,13 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-
-                            <com.petshop.resource.CircleImageView
-                                android:id="@+id/imageProfile"
-                                android:layout_width="140dp"
-                                android:layout_height="140dp"
-                                android:layout_gravity="center_horizontal"
-                                android:src="@drawable/logo_petshop_gray"
-                                tools:layout_editor_absoluteX="124dp"
-                                tools:layout_editor_absoluteY="35dp"
-                                tools:ignore="MissingConstraints" />
+                    <ImageView
+                        android:id="@+id/imageProfile"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/logo_petshop"
+                        app:tint="@android:color/white"/>
 
                     <com.petshop.payment.CustomTextView
                         android:layout_width="210dp"
@@ -49,7 +46,7 @@
 
                     <EditText
                         android:id="@+id/nome"
-                        android:layout_width="match_parent"
+                        android:layout_width="236dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="30dp"
@@ -66,7 +63,7 @@
 
                     <EditText
                         android:id="@+id/idade"
-                        android:layout_width="match_parent"
+                        android:layout_width="236dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="30dp"
@@ -83,7 +80,7 @@
 
                     <EditText
                         android:id="@+id/email"
-                        android:layout_width="match_parent"
+                        android:layout_width="236dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="30dp"
@@ -99,7 +96,7 @@
                         tools:ignore="HardcodedText" />
                     <EditText
                         android:id="@+id/senha"
-                        android:layout_width="match_parent"
+                        android:layout_width="236dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="30dp"

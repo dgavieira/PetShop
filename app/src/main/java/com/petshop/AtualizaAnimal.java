@@ -1,10 +1,12 @@
 package com.petshop;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -14,13 +16,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import com.petshop.adapter.AnimalViewAdapter;
-import com.petshop.db.AnimalDAO;
-import com.petshop.db.Database;
+import com.petshop.db.DAO;
 import com.petshop.model.Animais;
-import com.petshop.model.DbBitmapUtility;
 import com.petshop.resource.CircleImageView;
 
 import java.io.ByteArrayOutputStream;
@@ -28,49 +26,71 @@ import java.io.ByteArrayOutputStream;
 
 public class AtualizaAnimal extends AppCompatActivity {
 
-    CircleImageView imageViewProfilePet;
-    EditText edtNome, edtRaca;
-    AnimalViewAdapter adapter;
+    CircleImageView activity_dados_pessoas_avatar;
+    String activity_dados_pessoas_fotoEmString = "";
+    ImageView activity_dados_pessoas_icone;
+    EditText activity_dados_pessoas_editText_nome_recebido,
+            activity_dados_pessoas_editText_raca_recebido,
+            activity_dados_pessoas_editText_categoria_recebido;
 
-    String categoria;
-    String nome;
+    Button activity_dados_pessoas_botao_atualizar,
+            activity_dados_pessoas_botao_excluir,
+            activity_dados_pessoas_botao_voltar;
 
-    Button btnAtualizar, btnVoltar;
+    Spinner activity_dados_pessoas_spinner_categorias_recebido;
+    String activity_dados_pessoas_nome_recebido;
 
-    Animais animais;
-    Spinner categoriaSelected;
-    Database database;
+    String activity_dados_pessoas_categoria;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.atualiza_cadastro_animal);
 
+        // Widgets do primeiro layout (editText´s e o Spinner).
 
-        imageViewProfilePet = findViewById(R.id.imageProfilePet);
-        edtNome = findViewById(R.id.activity_dados_pessoas_editText_nome_recebido);
-        edtRaca = findViewById(R.id.activity_dados_pessoas_editText_raca_recebido);
-        categoriaSelected = findViewById(R.id.activity_dados_pessoas_spinner_categorias_recebido);
+        activity_dados_pessoas_avatar = findViewById(R.id.activity_dados_pessoas_avatar);
+        activity_dados_pessoas_editText_nome_recebido = findViewById(R.id.activity_dados_pessoas_editText_nome_recebido);
+        activity_dados_pessoas_editText_raca_recebido = findViewById(R.id.activity_dados_pessoas_editText_raca_recebido);
+        activity_dados_pessoas_spinner_categorias_recebido = findViewById(R.id.activity_dados_pessoas_spinner_categorias_recebido);
 
         // Widgets do segundo layout (Botões)
-        btnAtualizar = findViewById(R.id.activity_dados_pessoas_button_atualizar);
-        btnVoltar = findViewById(R.id.activity_dados_pessoas_button_voltar);
+        activity_dados_pessoas_botao_atualizar = findViewById(R.id.activity_dados_pessoas_button_atualizar);
+        activity_dados_pessoas_botao_excluir = findViewById(R.id.activity_dados_pessoas_button_excluir);
+        activity_dados_pessoas_botao_voltar = findViewById(R.id.activity_dados_pessoas_button_voltar);
 
         Intent intent = getIntent();
 
 
-        if (intent.getStringExtra("categoria").equals("Cachorro")){
-            //activity_dados_pessoas_icone.setImageResource(R.drawable.ic_dog);
-            categoriaSelected.setSelection(1);
-            categoria = "Cachorro";
-        }else{
-            //activity_dados_pessoas_icone.setImageResource(R.drawable.ic_cat);
-            categoriaSelected.setSelection(0);
-            categoria = "Gato";
+        if (intent.getStringExtra("foto") != null) {
+            //Verificação de recebimento vazio ou campo.
+
+            if(intent.getStringExtra("foto").equals("") ||
+            intent.getStringExtra("foto").equals("null")){
+                activity_dados_pessoas_avatar.setImageResource(android.R.drawable.ic_menu_camera);
+
+            }else{
+                byte[] imagemEmBytes;
+                imagemEmBytes = Base64.decode(intent.getStringExtra("foto"), Base64.DEFAULT);
+                Bitmap imageDecodificada = BitmapFactory.decodeByteArray(imagemEmBytes,0,imagemEmBytes.length);
+                activity_dados_pessoas_avatar.setImageBitmap(imageDecodificada);
+            }
 
         }
 
-        imageViewProfilePet.setOnClickListener(new View.OnClickListener() {
+
+        if (intent.getStringExtra("categorias").equals("Cachorro")){
+            //activity_dados_pessoas_icone.setImageResource(R.drawable.ic_dog);
+            activity_dados_pessoas_spinner_categorias_recebido.setSelection(1);
+            activity_dados_pessoas_categoria = "Cachorro";
+        }else{
+            //activity_dados_pessoas_icone.setImageResource(R.drawable.ic_cat);
+            activity_dados_pessoas_spinner_categorias_recebido.setSelection(0);
+            activity_dados_pessoas_categoria = "Gato";
+
+        }
+
+        activity_dados_pessoas_avatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -78,13 +98,13 @@ public class AtualizaAnimal extends AppCompatActivity {
             }
         });
 
-        categoriaSelected.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        activity_dados_pessoas_spinner_categorias_recebido.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(categoriaSelected.getSelectedItem().equals("Gato")){
-                    categoria = "Gato";
+                if(activity_dados_pessoas_spinner_categorias_recebido.getSelectedItem().equals("Gato")){
+                    activity_dados_pessoas_categoria = "Gato";
                 }else{
-                    categoria = "Cachorro";
+                    activity_dados_pessoas_categoria = "Cachorro";
                 }
             }
 
@@ -94,21 +114,42 @@ public class AtualizaAnimal extends AppCompatActivity {
             }
         });
 
-        nome = intent.getStringExtra("nome");
-        edtNome.setText(intent.getStringExtra("nome"));
-        edtRaca.setText(intent.getStringExtra("raca"));
+        activity_dados_pessoas_nome_recebido = intent.getStringExtra("nome");
 
-        btnAtualizar.setOnClickListener(new View.OnClickListener() {
+        activity_dados_pessoas_editText_nome_recebido.setText(intent.getStringExtra("nome"));
+        activity_dados_pessoas_editText_raca_recebido.setText(intent.getStringExtra("raca"));
+
+        activity_dados_pessoas_botao_atualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //update(edtNome.getText().toString(), edtRaca.getText().toString(), categoria, imageViewToByte(imageViewProfilePet));
-                Toast.makeText(AtualizaAnimal.this, "Erro ao atualizar", Toast.LENGTH_SHORT).show();
+                atualizaAnimais();
+
+            }
+        });
+
+        activity_dados_pessoas_botao_excluir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder confirmaExclusao = new AlertDialog.Builder(AtualizaAnimal.this);
+                confirmaExclusao.setTitle("Aviso!");
+                confirmaExclusao.setMessage("Têm certeza que deseja excluir esse cadastro " +
+                       activity_dados_pessoas_nome_recebido + " ?" );
+                confirmaExclusao.setCancelable(false);
+                confirmaExclusao.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        apagaAnimais();
+                    }
+                });
+                confirmaExclusao.setNegativeButton("Não",null);
+                confirmaExclusao.create().show();
 
             }
         });
 
 
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
+        activity_dados_pessoas_botao_voltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -117,36 +158,22 @@ public class AtualizaAnimal extends AppCompatActivity {
 
     }
 
-    private void atualizaAnimais(Animais animais) {
-
-        animais.setNome(edtNome.getText().toString());
-        animais.setRaca(edtRaca.getText().toString());
-        animais.setCategoria(categoria);
-        animais.setFoto(imageViewToByte(imageViewProfilePet));
-        database.updateAnimal(animais);
-
-        Toast.makeText(this, "Contato Editado Com Sucesso", Toast.LENGTH_SHORT).show();
+    private void atualizaAnimais( ) {
+        DAO dao = new DAO(getApplicationContext());
+        Animais animaisParaAtualizar = new Animais();
+        animaisParaAtualizar.setNome(activity_dados_pessoas_editText_nome_recebido.getText().toString());
+        animaisParaAtualizar.setRaca(activity_dados_pessoas_editText_raca_recebido.getText().toString());
+        animaisParaAtualizar.setCategoria(activity_dados_pessoas_categoria);
+        animaisParaAtualizar.setFoto(activity_dados_pessoas_fotoEmString);
+        dao.insereAnimal(animaisParaAtualizar, activity_dados_pessoas_nome_recebido);
+        dao.close();
         finish();
-
     }
 
-    private void update(String newNome, String newCategoria, String newRaca, byte[] newPhoto)
-    {
-
-        int id = adapter.getSelectedItemID();
-
-        Database db= new Database(this);
-        boolean updated=db.update(newNome, newCategoria, newRaca, newPhoto ,id);
-
-        if(updated) {
-            edtNome.setText("");
-            edtRaca.setText("");
-            imageViewProfilePet.setImageBitmap(null);
-
-        }else {
-            Toast.makeText(this,"Erro ao atualizar contato",Toast.LENGTH_SHORT).show();
-        }
-
+    private void apagaAnimais() {
+        DAO dao = new DAO(getApplicationContext());
+        dao.apagaAnimais(activity_dados_pessoas_nome_recebido);
+        finish();
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent dados) {
@@ -155,7 +182,7 @@ public class AtualizaAnimal extends AppCompatActivity {
         if(requestCode == 1) {
             try{
                 Bitmap fotoRegistrada = (Bitmap) dados.getExtras().get("data");
-                imageViewProfilePet.setImageBitmap(fotoRegistrada);
+                activity_dados_pessoas_avatar.setImageBitmap(fotoRegistrada);
 
                 byte[] fotoEmBytes;
                 ByteArrayOutputStream streamDaFotoEmBytes = new ByteArrayOutputStream();
@@ -164,18 +191,13 @@ public class AtualizaAnimal extends AppCompatActivity {
 
                 fotoRegistrada.compress(Bitmap.CompressFormat.PNG, 70, streamDaFotoEmBytes);
                 fotoEmBytes = streamDaFotoEmBytes.toByteArray();
+                //Armazenamento da foto no banco de dados.
+                activity_dados_pessoas_fotoEmString = Base64.encodeToString(fotoEmBytes, Base64.DEFAULT);
 
             }catch (Exception e ) {
 
             }
 
         }
-    }
-    public static byte[] imageViewToByte(ImageView image){
-        Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] byteArray = stream.toByteArray();
-        return byteArray;
     }
 }

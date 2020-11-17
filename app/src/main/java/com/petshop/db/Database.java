@@ -2,15 +2,12 @@ package com.petshop.db;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import com.petshop.R;
-import com.petshop.model.Animais;
 import com.petshop.model.DbBitmapUtility;
 import com.petshop.model.Produto;
 
@@ -19,7 +16,7 @@ import java.io.IOException;
 public class Database extends SQLiteOpenHelper {
 
     // Nome e versão do banco de dados
-    public static final int DATABASE_VERSION = 7;
+    public static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "LojaApp.db";
     Context context = null;
 
@@ -29,7 +26,6 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_TABLE_PRODUCT);
         db.execSQL(SQL_CREATE_TABLE_SHOP);
         db.execSQL(SQL_POPULATE_USER_TABLE);
-        db.execSQL(SQL_CREATE_TABLE_ANIMAL);
 
         // Popular produtos
         for ( int i = 0; i < nomeProdutos.length; i++ ){
@@ -79,7 +75,6 @@ public class Database extends SQLiteOpenHelper {
                     "nome TEXT NOT NULL, " +
                     "senha TEXT NOT NULL, " +
                     "idade INT NOT NULL, " +
-                    "img BLOB, " +
                     "email TEXT UNIQUE NOT NULL)";
 
     private static final String SQL_CREATE_TABLE_PRODUCT =
@@ -99,14 +94,6 @@ public class Database extends SQLiteOpenHelper {
                     "FOREIGN KEY (idUsuario) REFERENCES Usuario(id),"+
                     "FOREIGN KEY (idProduto) REFERENCES Produto(id))";
 
-    private static final String SQL_CREATE_TABLE_ANIMAL =
-            "CREATE TABLE Animal ("+
-                    "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"+
-                    "nome text NOT NULL, "+
-                    "categoria text NOT NULL, "+
-                    "raca text NOT NULL, " +
-                    "foto BLOB)";
-
     // Comados para deletar tabelas
     private static final String SQL_DELETE_TABLE_USER =
             "DROP TABLE IF EXISTS Usuario";
@@ -117,17 +104,13 @@ public class Database extends SQLiteOpenHelper {
     private static final String SQL_DELETE_TABLE_SHOP =
             "DROP TABLE IF EXISTS Shop";
 
-    private static final String SQL_DELETE_TABLE_ANIMAL =
-            "DROP TABLE IF EXISTS Shop";
-
     // Comando para popular tabelas
     private static final String SQL_POPULATE_USER_TABLE =
             "INSERT INTO Usuario VALUES (" +
                     "0," +
                     "'root', " +    // nome
                     "'root', " +    //senha
-                    "'21', " +
-                    "null, " + // idade
+                    "'21', " +      // idade
                     "'root')"; //email
 
     // Comandos de SQL para o Usuário
@@ -144,12 +127,6 @@ public class Database extends SQLiteOpenHelper {
     protected static final String SQL_SELECT_ALL_PRODUTO_BY_ID =
             "SELECT id,nome,descricao,valor,img FROM Produto ORDER BY nome";
 
-    // Comandos de SQL para o Animal
-    protected static final String SQL_SELECT_ANIMAL_BY_ID =
-            "SELECT * FROM Animal WHERE id=?";
-    protected static final String SQL_SELECT_ALL_ANIMAL_BY_ID =
-            "SELECT id,nome,categoria,raca,foto FROM Animal ORDER BY nome";
-
     // Comandos de SQL para o Shop
     protected static final String SQL_SELECT_SHOP_BY_ID =
             "SELECT * FROM Shop WHERE id=?";
@@ -162,105 +139,6 @@ public class Database extends SQLiteOpenHelper {
                     " ON Shop.idProduto=Produto.id" +
                     " WHERE Shop.idUsuario=?" +
                     " ORDER BY Shop.id DESC";
-
-
-
-    public Cursor retrieve(){
-        SQLiteDatabase db = getReadableDatabase();
-
-        // Define a projection that specifies which columns from the database
-        // you will actually use after this query.
-        String[]  columns = {"id", "nome", "descricao", "valor", "img"};
-
-        // How you want the results sorted in the resulting Cursor
-        String sortOrder =  "nome" + " ASC";
-
-        Cursor c = db.query(
-                "Produto",                    // The table to query
-                columns,                                 // The columns to return
-                null,                                       // The columns for the WHERE clause
-                null,                                       // The values for the WHERE clause
-                null,                                       // don't group the rows
-                null,                                       // don't filter by row groups
-                sortOrder                                   // The sort order
-        );
-
-        return c;
-    }
-
-    public Cursor retrieveAnimal(){
-        SQLiteDatabase db = getReadableDatabase();
-
-        String[]  columns = {"id", "nome", "categoria", "raca", "foto"};
-
-        // How you want the results sorted in the resulting Cursor
-        String sortOrder =  "nome" + " ASC";
-
-        Cursor c = db.query(
-                "Animal",                    // The table to query
-                columns,                                 // The columns to return
-                null,                                       // The columns for the WHERE clause
-                null,                                       // The values for the WHERE clause
-                null,                                       // don't group the rows
-                null,                                       // don't filter by row groups
-                sortOrder                                   // The sort order
-        );
-
-        return c;
-    }
-
-
-    public void updateAnimal(Animais animais){
-        SQLiteDatabase db = getReadableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("nome", animais.getNome());
-        values.put("categoria", animais.getCategoria());
-        values.put("raca", animais.getRaca());
-        values.put("foto", animais.getFoto());
-
-        String selection = "id" + " LIKE ?";
-        String[] selectionArgs = { String.valueOf(animais.getId()) };
-
-        int count = db.update(
-                "Animal",
-                values,
-                selection,
-                selectionArgs);
-    }
-
-    public boolean update(String newNome, String newCategoria, String newRaca, byte[] newFoto ,int id)
-    {
-        try
-        {
-            SQLiteDatabase db = getReadableDatabase();
-            ContentValues cv=new ContentValues();
-            cv.put("nome",newNome);
-            cv.put("categoria", newCategoria);
-            cv.put("raca", newRaca);
-            cv.put("foto", newFoto);
-
-
-            int result=db.update("Animal",cv, "id" + " =?", new String[]{String.valueOf(id)});
-            if(result>0)
-            {
-                return true;
-            }
-        }catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-
-        return false;
-
-    }
-
-    public void deleteAnimal(int id){
-        SQLiteDatabase db = getReadableDatabase();
-
-        String selection = "id" + " LIKE ?";
-        String[] selectionArgs = { String.valueOf(id) };
-        db.delete("Animal", selection, selectionArgs);
-    }
 
     // Produtos
     private String nomeProdutos[] = { "Cama", "Ração Cachorro", "Ração Gato", "Guia", "Osso", "Comedouro" };

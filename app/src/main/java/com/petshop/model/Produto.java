@@ -22,9 +22,6 @@ public class Produto {
         this.img = img;
     }
 
-    public Produto() {
-    }
-
     public byte[] getImg() {
         return img;
     }
@@ -57,11 +54,11 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public double getPreco() {
+    public Double getPreco() {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(Double preco) {
         this.preco = preco;
     }
 

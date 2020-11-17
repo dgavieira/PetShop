@@ -50,6 +50,7 @@ public class ActivityShop extends AppCompatActivity {
     TextView txtValorTotal;
     HashMap<Integer, Integer> itensComprados;
     ArrayList<Object> produtos = new ArrayList<>();
+    Database database;
     ProdutoAdapter produtosAdapter;
     ItensCompradosAdapter itensCompradosAdapter;
     Usuario usuario;
